@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles  # ✅ Add this
+from fastapi.staticfiles import StaticFiles  
 from pydantic import BaseModel
 from diffusers import StableDiffusionPipeline
 import torch
@@ -16,10 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# ✅ Serve the generated images
 app.mount("/outputs", StaticFiles(directory="outputs"), name="outputs")
 
-# Load model
 pipe = StableDiffusionPipeline.from_pretrained(
     "runwayml/stable-diffusion-v1-5",
     torch_dtype=torch.float32,
